@@ -34,6 +34,33 @@ public class Board {
         }
     }
 
+
+
+    public void printBoard(){
+        for(int i=0;i<8;i++) {
+            for (int j = 0; j < 8; j++) {
+                System.out.print("["+board[i][j]+"]");
+            }
+            System.out.println();
+        }
+    }
+
+    public void updateMove(int[] oldPiece,Piece pieceMove, Piece pieceDead){
+        board[oldPiece[0]][oldPiece[1]] = new Empty('e', oldPiece[0], oldPiece[1],0);
+        board[pieceMove.row][pieceMove.col] = pieceMove;
+        if(pieceDead != null){
+            pieceDead.alive = false;
+            board[pieceDead.row][pieceDead.col] = new Empty('e', pieceDead.row, pieceDead.col,0);
+        }
+    }
+
+    public boolean isEmpty(int row, int col){
+        Piece check =  board[row][col];
+        return  (check instanceof Empty);
+    }
+
+
+
     private void initPawns(){
         Piece pawn1B = new Pawn('b',1,0,1);
         Piece pawn2B = new Pawn('b',1,1,1);
@@ -123,14 +150,5 @@ public class Board {
 
         Piece king1W = new King('w',7,4,9);
         whitePiece.add(king1W);
-    }
-
-    public void printBoard(){
-        for(int i=0;i<8;i++) {
-            for (int j = 0; j < 8; j++) {
-                System.out.print("["+board[i][j]+"]");
-            }
-            System.out.println();
-        }
     }
 }

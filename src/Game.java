@@ -7,10 +7,30 @@ public class Game {
         board.printBoard();
         System.out.println("Done Created Board");
 
-        Player p1 = new WhitePlayer(board.whitePiece);
-        Player p2 = new WhitePlayer(board.blackPiece);
-        Move tmp = p1.chooseMove();
-        int x = 4;
+        Player p1 = new WhitePlayer(board.whitePiece, board);
+        Player p2 = new BlackPlayer(board.blackPiece, board);
+
+        Move move;
+        int counter = 1;
+        boolean whiteMove = true;
+        while(true){
+            // white move
+            if (whiteMove) {
+                move = p1.chooseMove();
+                p1.movePiece(move);
+                whiteMove = false;
+            }
+            // black move
+            else {
+                move = p2.chooseMove();
+                p2.movePiece(move);
+                whiteMove = true;
+            }
+            System.out.println("Move "+counter++);
+            board.printBoard();
+            System.out.println();
+        }
+
     }
 
 }
