@@ -4,8 +4,8 @@ public class Pawn extends Piece {
 
     public boolean firstMove;
 
-    public Pawn(char pieceColor, int pieceRow, int pieceCol, int pieceValue) {
-        super(pieceColor, pieceRow, pieceCol, pieceValue);
+    public Pawn(char pieceColor, int pieceRow, int pieceCol, int pieceValue, Board board) {
+        super(pieceColor, pieceRow, pieceCol, pieceValue, board);
         this.firstMove = true;
     }
 
@@ -19,25 +19,36 @@ public class Pawn extends Piece {
         // first move - can move 2 tile also
         if(firstMove){
             checkRow = row + dir*2;
-            if(checkMove(checkRow, checkCol)){
-                newMove = new SimpleMove(row, col, checkRow, checkCol, this);
-                moves.add(newMove);
+            if(checkMove(checkRow, checkCol) && board.isEmpty(checkRow, checkCol)){
+                if(board.isEmpty(checkRow, checkCol)) {
+                    newMove = new SimpleMove(row, col, checkRow, checkCol, this);
+                    moves.add(newMove);
+                }
             }
         }
         checkRow = row + dir;
-        if(checkMove(checkRow, checkCol)){
+        if(checkMove(checkRow, checkCol) && board.isEmpty(checkRow, checkCol)){
             if(checkRow == 0 || checkRow == 7){
-                Piece newQueen = new Queen(color, checkRow, checkCol, 8); // update row and col to the queen here
+                Piece newQueen = new Queen(color, checkRow, checkCol, 8, board); // update row and col to the queen here
                 newMove = new MovePawnToEnd(row, col, checkRow, checkCol, this, newQueen);
             }else {
                 newMove = new SimpleMove(row, col, checkRow, checkCol, this);
             }
             moves.add(newMove);
         }
-    }
 
-    private boolean checkMove(int checkRow, int checkCol){
-        if(checkRow < 0 || checkRow > 7 || checkCol < 0 || checkCol > 7) return false;
-        return true;
+        checkRow = row + dir;
+        checkCol = col + 1;
+        if(checkMove(checkRow, checkCol) && board.isEnemy(checkRow, checkCol, color)){
+            newMove = new EatMove(row, col, checkRow, checkCol, this, board.getPiece(checkRow, checkCol));
+            moves.add(newMove);
+        }
+        checkCol = col - 1;
+        if(checkMove(checkRow, checkCol) && board.isEnemy(checkRow, checkCol, color)){
+            newMove = new EatMove(row, col, checkRow, checkCol, this, board.getPiece(checkRow, checkCol));
+            moves.add(newMove);
+        }
+
+
     }
 }

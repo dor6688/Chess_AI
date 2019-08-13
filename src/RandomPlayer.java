@@ -16,11 +16,11 @@ public abstract class RandomPlayer extends Player {
                 allPossibleMoves.addAll(piece.getAllPieceMoves());
             }
             int random = (int) (Math.random() * allPossibleMoves.size());
-            Move tmp = allPossibleMoves.get(random);
-            while (!board.isEmpty(tmp.toRow, tmp.toCol)) { // check there is not make a chess !
-                random = (int) (Math.random() * allPossibleMoves.size());
-                tmp = allPossibleMoves.get(random);
-            }
+//            Move tmp = allPossibleMoves.get(random);
+//            while (!board.isEmpty(tmp.toRow, tmp.toCol)) { // check there is not make a chess !
+//                random = (int) (Math.random() * allPossibleMoves.size());
+//                tmp = allPossibleMoves.get(random);
+//            }
             return allPossibleMoves.get(random);
 
         }

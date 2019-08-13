@@ -35,8 +35,19 @@ public abstract class Player {
         }
 
         if(move instanceof MovePawnToEnd){
+            int[] oldPiece = {currentPiece.row, currentPiece.col};
             Piece newQueen = ((MovePawnToEnd) move).getQueen();
+            currentPiece.alive = false;
+            piecesPlayer.add(newQueen);
+            board.updateMove(oldPiece, newQueen, null);
+        }
 
+        if(move instanceof EatMove){
+            int[] oldPiece = {currentPiece.row, currentPiece.col};
+            currentPiece.row = move.toRow;
+            currentPiece.col = move.toCol;
+            Piece dead = ((EatMove) move).dead;
+            board.updateMove(oldPiece, currentPiece,dead);
         }
     }
 }

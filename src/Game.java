@@ -28,6 +28,7 @@ public class Game {
             }
             System.out.println("Move "+counter++);
             board.printBoard();
+            System.out.println("Move : "+move.piece +" ["+move.fromRow+","+move.fromCol+"]=>["+move.toRow+","+move.toCol+"]");
             System.out.println();
         }
 

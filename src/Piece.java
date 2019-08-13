@@ -10,13 +10,16 @@ public abstract class Piece {
     public boolean alive;
     protected List<Move>moves;
 
-    public Piece(char pieceColor, int pieceRow, int pieceCol, int pieceValue){
+    protected Board board;
+
+    public Piece(char pieceColor, int pieceRow, int pieceCol, int pieceValue, Board board){
         this.color = pieceColor;
         this.row = pieceRow;
         this.col = pieceCol;
         this.value = pieceValue;
         this.moves = new ArrayList<>();
         this.alive = true;
+        this.board = board;
     }
 
     public List<Move> getAllPieceMoves(){
@@ -35,6 +38,11 @@ public abstract class Piece {
         }
         Piece p = (Piece) obj;
         return this.row == p.row && this.col == p.col && this.color == p.color && this.value == p.value;
+    }
+
+    protected boolean checkMove(int checkRow, int checkCol){
+        if(checkRow < 0 || checkRow > 7 || checkCol < 0 || checkCol > 7) return false;
+        return true;
     }
 
     public String toString(){

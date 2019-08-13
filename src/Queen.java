@@ -1,6 +1,6 @@
 public class Queen extends Piece {
-    public Queen(char pieceColor, int pieceRow, int pieceCol, int pieceValue) {
-        super(pieceColor, pieceRow, pieceCol, pieceValue);
+    public Queen(char pieceColor, int pieceRow, int pieceCol, int pieceValue, Board board) {
+        super(pieceColor, pieceRow, pieceCol, pieceValue, board);
     }
 
     @Override
